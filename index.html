@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>怪しいポイントを探せ！</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <main class="app">
+
+    <!-- ===== ゲーム画面 ===== -->
+    <section id="gameScreen">
+
+      <div class="top-area">
+
+        <div class="game-title">
+          🔍 怪しいポイントを探せ！
+        </div>
+
+        <div class="progress-text" id="progressText">
+          1 / 5
+        </div>
+
+        <div class="progress-bar">
+          <div
+            class="progress-fill"
+            id="progressFill"
+          ></div>
+        </div>
+
+      </div>
+
+      <div class="card" id="card">
+
+        <div class="question-label">
+          このメッセージ、どこか怪しい？
+        </div>
+
+        <div
+          class="message-card"
+          id="messageCard"
+        >
+        </div>
+
+        <div class="hint">
+          👆 怪しいと思う部分をタップ！
+        </div>
+
+        <div
+          class="feedback"
+          id="feedback"
+        ></div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===== 結果画面 ===== -->
+
+    <section
+      id="resultScreen"
+      class="result-screen hidden"
+    >
+
+      <div class="result-card">
+
+        <div class="result-title">
+          🎉 ゲーム終了！
+        </div>
+
+        <div class="score-label">
+          あなたのスコア
+        </div>
+
+        <div
+          class="score"
+          id="finalScore"
+        >
+          0
+        </div>
+
+        <div
+          class="result-message"
+          id="resultMessage"
+        >
+        </div>
+
+        <button
+          class="main-btn"
+          onclick="restartGame()"
+        >
+          🔄 もう一度遊ぶ
+        </button>
+
+        <button
+          class="sub-btn"
+          onclick="goToLearn()"
+        >
+          📚 詐欺について学ぶ
+        </button>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
