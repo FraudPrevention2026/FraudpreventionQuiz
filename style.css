@@ -246,6 +246,30 @@ body {
 
   margin-bottom: 8px;
 }
+/* ===== 正解・不正解の解説 ===== */
+
+.feedback {
+  display: none;
+
+  margin-top: 16px;
+  padding: 18px;
+
+  background: rgba(255, 255, 255, 0.95);
+
+  color: #333;
+
+  border-radius: 18px;
+
+  line-height: 1.7;
+
+  font-size: 15px;
+
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.feedback.show {
+  display: block;
 
 /* ===== 結果画面 ===== */
 
