@@ -1,449 +1,265 @@
-const allQuestions = [
+// ===== ゲーム設定 =====
 
-  // ================================
-  // 1. ニセ警察
-  // ================================
-  {
-    message: [
-      "〇〇県警の□□です。",
-      "先ほど確認した件について、追加で確認したいことがあります。",
-      "あなた名義の口座が事件の捜査対象になっています。",
-      "確認のため、現在利用している金融機関を教えてください。",
-      "詳しい手続きについては、担当の者から改めて連絡します。"
-    ],
-    correct: [2],
-    explanation:
-      "警察を名乗って不安をあおり、個人情報などを聞き出そうとする手口があります。相手の説明だけで信用せず、公式の連絡先などから確認しましょう。"
-  },
+const totalQuestions = 5;
 
-
-  // ================================
-  // 2. オレオレ詐欺
-  // ================================
-  {
-    message: [
-      "「もしもし、俺だけど」",
-      "ちょっと声が変かもしれないけど、風邪をひいてるんだ。",
-      "今日、会社のことで急にお金が必要になって……。",
-      "母さんなら分かってくれると思う。",
-      "あとで別の人が取りに行くから、用意しておいて。"
-    ],
-    correct: [0, 1, 2, 4],
-    explanation:
-      "家族を装って「声が違う理由」を説明し、急な金銭要求につなげる手口があります。元の電話番号などにかけて本人か確認しましょう。"
-  },
-
-
-  // ================================
-  // 3. 預貯金詐欺
-  // ================================
-  {
-    message: [
-      "こちらは金融機関のサポート窓口です。",
-      "お客様の口座について、本人確認が必要となりました。",
-      "確認のため、口座番号をお伺いします。",
-      "本人確認が完了したら、手続きについてご案内します。",
-      "なお、暗証番号をこちらからお聞きすることはありません。"
-    ],
-    correct: [2],
-    explanation:
-      "「本人確認」を理由に口座情報を聞き出そうとする連絡には注意が必要です。特に、相手が本当に金融機関なのか確認することが大切です。"
-  },
-
-
-  // ================================
-  // 4. 架空請求
-  // ================================
-  {
-    message: [
-      "ご利用料金についてのお知らせです。",
-      "以前ご利用になったサービスについて、未確認の請求があります。",
-      "心当たりがない場合は、そのまま放置してください。",
-      "確認をご希望の場合は、下記窓口までお問い合わせください。",
-      "受付時間：平日9:00～17:00"
-    ],
-    correct: [1],
-    explanation:
-      "身に覚えのない料金を「未払い」「請求」などと伝えて不安にさせるケースがあります。心当たりがない請求について、メッセージに記載された連絡先へ慌てて連絡しないようにしましょう。"
-  },
-
-
-  // ================================
-  // 5. 還付金詐欺
-  // ================================
-  {
-    message: [
-      "市役所の担当者です。",
-      "以前お送りした書類について、まだ手続きが確認できておりません。",
-      "期限が近づいているため、ご案内しています。",
-      "手続き方法について説明しますので、近くのATMまで移動してください。",
-      "ATMに到着したら、こちらの番号へ電話してください。"
-    ],
-    correct: [3, 4],
-    explanation:
-      "還付金などを理由にATMへ誘導し、電話で操作を指示する手口があります。ATMで還付金を受け取ることはできません。"
-  },
-
-
-  // ================================
-  // 6. 融資保証金詐欺
-  // ================================
-  {
-    message: [
-      "【ご融資の仮審査結果】",
-      "お申し込み内容を確認したところ、融資可能と判断されました。",
-      "正式な契約の前に、保証料として2万円のお支払いが必要です。",
-      "保証料のお支払い確認後、融資手続きを開始します。",
-      "審査に通過していますので、ご安心ください。"
-    ],
-    correct: [2],
-    explanation:
-      "融資を受ける前に「保証料」「手数料」などの名目でお金を要求する手口があります。「融資できる」と言われても、先払いを求められた場合は慎重に確認しましょう。"
-  },
-
-
-  // ================================
-  // 7. 金融商品詐欺
-  // ================================
-  {
-    message: [
-      "知り合いから投資について教えてもらいました。",
-      "「この商品は今後かなり伸びる可能性がある」と説明されました。",
-      "もちろん損をする可能性もあるそうです。",
-      "詳しい資料を確認してから考えようと思います。",
-      "分からないところは家族にも相談するつもりです。"
-    ],
-    correct: [],
-    explanation:
-      "この文章には、詐欺と判断できる決定的なポイントはありません。投資にはリスクがあることを説明している点や、資料を確認・相談しようとしている点も重要です。"
-  },
-
-
-  // ================================
-  // 8. ギャンブル詐欺
-  // ================================
-  {
-    message: [
-      "「次の試合の予想を知りたい人はこちら」",
-      "過去のデータを分析した独自予想を公開しています。",
-      "予想を見るための有料プランもあります。",
-      "ただし、結果を保証するものではありません。",
-      "利用するかどうかは自分で判断してください。"
-    ],
-    correct: [],
-    explanation:
-      "有料サービスだからといって、それだけで詐欺とは限りません。重要なのは「絶対に当たる」「必ず儲かる」など、結果を保証しているかどうかです。"
-  },
-
-
-  // ================================
-  // 9. SNS型投資詐欺
-  // ================================
-  {
-    message: [
-      "SNSで知り合った人から投資の話を聞きました。",
-      "「自分も実際に利益が出た」と画面を見せてくれました。",
-      "興味があるなら、同じ投資グループを紹介すると言われました。",
-      "まず少額から試して、仕組みを理解してから判断するつもりです。",
-      "分からない点があるので、家族にも相談してみます。"
-    ],
-    correct: [1, 2],
-    explanation:
-      "SNS上の相手が見せる利益画面や、投資グループへの勧誘だけでは、その情報が本物とは限りません。SNSで知り合った相手から投資を勧められた場合は特に慎重に確認しましょう。"
-  },
-
-
-  // ================================
-  // 10. SNS型ロマンス詐欺
-  // ================================
-  {
-    message: [
-      "SNSで知り合った人と、毎日メッセージをしています。",
-      "仕事や趣味の話をするうちに、とても仲良くなりました。",
-      "相手から「将来一緒に暮らせたらいいね」と言われました。",
-      "その後、「仕事のトラブルで少しお金が必要」と相談されました。",
-      "まだ直接会ったことはありません。"
-    ],
-    correct: [3, 4],
-    explanation:
-      "SNSなどで親しくなった相手から、突然お金を要求されるケースがあります。直接会ったことがない相手からの金銭要求には特に注意しましょう。"
-  }
-
-];
-
-// ================================
-// ゲーム用変数
-// ================================
-
-let questions = [];
 let currentQuestion = 0;
 let score = 0;
 let answered = false;
 
 
-// ================================
-// HTML要素
-// ================================
+// ===== HTML要素 =====
 
-const gameScreen = document.getElementById("gameScreen");
-const resultScreen = document.getElementById("resultScreen");
+const gameScreen =
+  document.getElementById("gameScreen");
 
-const messageCard = document.getElementById("messageCard");
-const feedback = document.getElementById("feedback");
+const resultScreen =
+  document.getElementById("resultScreen");
 
-const progressText = document.getElementById("progressText");
-const progressFill = document.getElementById("progressFill");
+const progressText =
+  document.getElementById("progressText");
 
-const finalScore = document.getElementById("finalScore");
-const resultMessage = document.getElementById("resultMessage");
+const progressFill =
+  document.getElementById("progressFill");
+
+const messageCard =
+  document.getElementById("messageCard");
+
+const feedback =
+  document.getElementById("feedback");
+
+const finalScore =
+  document.getElementById("finalScore");
+
+const resultMessage =
+  document.getElementById("resultMessage");
 
 
-// ================================
-// 10問から5問をランダム選択
-// ================================
+// ===== 問題データ =====
 
-function selectRandomQuestions() {
+const questions = [
+  {
+    message: `
+      <div class="message-header">
+        <div class="message-icon">📱</div>
+        <div class="message-name">SMS</div>
+      </div>
 
-  const shuffled = [...allQuestions];
+      <p>
+        【重要】お客様のアカウントに異常なログインが確認されました。
+        下記URLから本人確認を行ってください。
+      </p>
 
-  for (let i = shuffled.length - 1; i > 0; i--) {
+      <p class="message-part suspicious"
+         onclick="checkPoint(this)">
+        https://example-security-login.com
+      </p>
+    `,
+    answer:
+      "公式サイトではない不自然なURLへ誘導している点が怪しいポイントです。"
+  },
 
-    const j = Math.floor(Math.random() * (i + 1));
+  {
+    message: `
+      <div class="message-header">
+        <div class="message-icon">📦</div>
+        <div class="message-name">宅配業者</div>
+      </div>
 
-    [shuffled[i], shuffled[j]] =
-      [shuffled[j], shuffled[i]];
+      <p>
+        お荷物をお届けしましたが、ご不在のため持ち帰りました。
+      </p>
+
+      <p class="message-part suspicious"
+         onclick="checkPoint(this)">
+        本日中に再配達の手続きをしてください。
+      </p>
+    `,
+    answer:
+      "急いで手続きをさせようとしている点が怪しいポイントです。"
+  },
+
+  {
+    message: `
+      <div class="message-header">
+        <div class="message-icon">💰</div>
+        <div class="message-name">投資情報</div>
+      </div>
+
+      <p>
+        今だけ特別公開！
+      </p>
+
+      <p class="message-part suspicious"
+         onclick="checkPoint(this)">
+        必ず利益が出る投資方法を無料で教えます。
+      </p>
+    `,
+    answer:
+      "「必ず利益が出る」と断定している点が怪しいポイントです。"
+  },
+
+  {
+    message: `
+      <div class="message-header">
+        <div class="message-icon">🏦</div>
+        <div class="message-name">銀行</div>
+      </div>
+
+      <p>
+        セキュリティ確認のため、
+      </p>
+
+      <p class="message-part suspicious"
+         onclick="checkPoint(this)">
+        暗証番号を入力してください。
+      </p>
+    `,
+    answer:
+      "銀行が暗証番号などの重要な情報をメッセージで要求するのは不自然です。"
+  },
+
+  {
+    message: `
+      <div class="message-header">
+        <div class="message-icon">🎁</div>
+        <div class="message-name">キャンペーン</div>
+      </div>
+
+      <p>
+        おめでとうございます！
+      </p>
+
+      <p class="message-part suspicious"
+         onclick="checkPoint(this)">
+        あなたは100万円の当選者に選ばれました！
+      </p>
+    `,
+    answer:
+      "突然高額な当選を知らせてくる「うまい話」は注意が必要です。"
   }
+];
 
-  // 10問の中から5問
-  questions = shuffled.slice(0, 5);
+
+// ===== ゲーム開始 =====
+
+function startGame() {
+
+  currentQuestion = 0;
+  score = 0;
+  answered = false;
+
+  // クイズ画面を表示
+  gameScreen.classList.remove("hidden");
+
+  // 結果画面を非表示
+  resultScreen.classList.add("hidden");
+
+  showQuestion();
 }
 
 
-// ================================
-// 問題を表示
-// ================================
+// ===== 問題表示 =====
 
 function showQuestion() {
 
-  const q = questions[currentQuestion];
-
   answered = false;
+
+  const question =
+    questions[currentQuestion];
+
+  progressText.textContent =
+    `${currentQuestion + 1} / ${totalQuestions}`;
+
+  progressFill.style.width =
+    `${((currentQuestion + 1) / totalQuestions) * 100}%`;
+
+  messageCard.innerHTML =
+    question.message;
 
   feedback.innerHTML = "";
 
-  progressText.innerText =
-    `${currentQuestion + 1} / 5`;
-
-  const progress =
-    (currentQuestion / 5) * 100;
-
-  progressFill.style.width =
-    `${progress}%`;
-
-
-  // メッセージを空にする
-  messageCard.innerHTML = "";
-
-
-  // メッセージの各部分を作る
-  q.message.forEach((text, index) => {
-
-    const part =
-      document.createElement("div");
-
-    part.className = "message-part";
-
-    part.innerText = text;
-
-
-    // タップされたら判定
-    part.addEventListener(
-      "click",
-      () => checkAnswer(index, part)
-    );
-
-
-    messageCard.appendChild(part);
-
-  });
+  feedback.classList.remove("show");
 }
 
 
-// ================================
-// 答えをチェック
-// ================================
+// ===== 怪しいポイントをタップ =====
 
-function checkAnswer(index, element) {
+function checkPoint(element) {
 
-  // すでに回答済みなら何もしない
-  if (answered) return;
+  if (answered) {
+    return;
+  }
 
-  const q = questions[currentQuestion];
-
-  // 回答済みにする
   answered = true;
 
+  score += 20;
 
-  // ================================
-  // 正解
-  // ================================
+  element.style.background =
+    "#dcfce7";
 
-  if (q.correct.includes(index)) {
+  element.style.borderBottom =
+    "3px solid #22c55e";
 
-    // 正解 → 20点
-    score += 20;
+  feedback.innerHTML = `
+    <strong>⭕ 怪しいポイントです！</strong>
+    <br><br>
+    ${questions[currentQuestion].answer}
+  `;
 
-    element.classList.add("correct");
+  feedback.classList.add("show");
 
+  // 次の問題へ
+  setTimeout(() => {
 
-    // 正解ポイントを全部表示
-    const parts =
-      messageCard.querySelectorAll(".message-part");
+    currentQuestion++;
 
-    q.correct.forEach(correctIndex => {
+    if (currentQuestion >= totalQuestions) {
 
-      if (parts[correctIndex]) {
-        parts[correctIndex].classList.add("correct");
-      }
+      showResult();
 
-    });
+    } else {
 
+      showQuestion();
 
-    feedback.innerHTML =
-      `🎉 正解！<br><br>${q.explanation}`;
+    }
 
-  }
-
-
-  // ================================
-  // 不正解
-  // ================================
-
-  else {
-
-    // 不正解 → 0点
-    element.classList.add("wrong");
-
-    feedback.innerHTML =
-      `❌ 不正解！<br><br>${q.explanation}`;
-
-  }
-
-
-  // ================================
-  // 「次の問題へ」ボタンを表示
-  // ================================
-
-  const nextButton =
-    document.createElement("button");
-
-  nextButton.className = "main-btn";
-
-  if (currentQuestion === questions.length - 1) {
-
-    nextButton.innerText =
-      "結果を見る";
-
-  } else {
-
-    nextButton.innerText =
-      "次の問題へ";
-
-  }
-
-  nextButton.addEventListener(
-    "click",
-    nextQuestion
-  );
-
-  feedback.appendChild(nextButton);
+  }, 1800);
 }
 
 
-/* ================================
-   次の問題
-================================ */
-
-function nextQuestion() {
-
-  currentQuestion++;
-
-
-  if (currentQuestion < questions.length) {
-
-    showQuestion();
-
-  } else {
-
-    showResult();
-
-  }
-}
-
-
-
-// ================================
-// 結果表示
-// ================================
+// ===== 結果表示 =====
 
 function showResult() {
 
-  progressText.innerText =
-    "5 / 5";
+  // ★ クイズ画面を完全に隠す
+  gameScreen.classList.add("hidden");
 
-  progressFill.style.width =
-    "100%";
-
-
-  gameScreen.style.display =
-    "none";
-
+  // ★ 結果画面を表示
   resultScreen.classList.remove("hidden");
 
+  finalScore.textContent =
+    `${score}点`;
 
-  // 100点満点
-  finalScore.innerText =
-    `${score} / 100`;
+  if (score >= 80) {
 
-
-  // 結果メッセージ
-  if (score === 100) {
-
-    resultMessage.innerText =
-      "🏆 パーフェクト！\n" +
-      "怪しいポイントをしっかり見抜けています！";
-
-  } else if (score >= 80) {
-
-    resultMessage.innerText =
-      "🎉 すごい！\n" +
-      "かなりの確率で怪しいポイントを見抜けています。";
+    resultMessage.innerHTML =
+      "怪しいポイントをしっかり見つけられました！<br>この調子で、メッセージを受け取ったときは一度立ち止まって確認しましょう。";
 
   } else if (score >= 60) {
 
-    resultMessage.innerText =
-      "👍 いい感じ！\n" +
-      "もう少し注意すると、さらに見抜けそうです。";
-
-  } else if (score >= 40) {
-
-    resultMessage.innerText =
-      "🔍 もう一歩！\n" +
-      "怪しいポイントを意識して確認してみましょう。";
+    resultMessage.innerHTML =
+      "かなり見つけられています！<br>急かす言葉や不自然なリンクなどにも注目してみましょう。";
 
   } else {
 
-    resultMessage.innerText =
-      "💡 これから覚えていこう！\n" +
-      "怪しいメッセージは、一度立ち止まって確認することが大切です。";
+    resultMessage.innerHTML =
+      "怪しいポイントを見つけるには、メッセージを落ち着いて確認することが大切です。<br>もう一度挑戦してみましょう！";
 
   }
 }
 
 
-// ================================
-// もう一度遊ぶ
-// ================================
+// ===== ゲーム再スタート =====
 
 function restartGame() {
 
@@ -453,39 +269,27 @@ function restartGame() {
 
   answered = false;
 
-
-  // 新しく5問選ぶ
-  selectRandomQuestions();
-
-
-  // ゲーム画面を表示
-  gameScreen.style.display =
-    "block";
-
+  // 結果画面を隠す
   resultScreen.classList.add("hidden");
 
+  // クイズ画面を表示
+  gameScreen.classList.remove("hidden");
 
   showQuestion();
 }
 
 
-// ================================
-// 詐欺について学ぶ
-// ================================
+// ===== 警察サイトへ =====
 
 function goToLearn() {
 
   window.open(
-    "https://www.police.pref.osaka.lg.jp/seikatsu/tokusyusagi/8083.html",
+    "https://www.police.pref.osaka.lg.jp/",
     "_blank"
   );
 }
 
 
-// ================================
-// ゲーム開始
-// ================================
+// ===== 初回起動 =====
 
-selectRandomQuestions();
-
-showQuestion();
+startGame();
