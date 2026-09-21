@@ -301,19 +301,18 @@ function showQuestion() {
   const q =
     questions[currentQuestion];
 
-
   // 回答前の状態に戻す
   answered = false;
-
 
   // 解説を消す
   feedback.innerHTML = "";
 
+  // 解説ボックスも非表示に戻す
+  feedback.classList.remove("show");
 
   // 進捗表示
   progressText.innerText =
     `${currentQuestion + 1} / 5`;
-
 
   // プログレスバー
   const progress =
@@ -322,10 +321,8 @@ function showQuestion() {
   progressFill.style.width =
     `${progress}%`;
 
-
   // メッセージを空にする
   messageCard.innerHTML = "";
-
 
   // メッセージを1行ずつ作る
   q.message.forEach(
@@ -334,16 +331,12 @@ function showQuestion() {
       const part =
         document.createElement("div");
 
-
       part.className =
         "message-part";
-
 
       part.innerText =
         text;
 
-
-      // タップされたら回答判定
       part.addEventListener(
         "click",
         () => {
@@ -355,6 +348,12 @@ function showQuestion() {
 
         }
       );
+
+      messageCard.appendChild(part);
+
+    }
+  );
+}
 
 
       messageCard.appendChild(part);
