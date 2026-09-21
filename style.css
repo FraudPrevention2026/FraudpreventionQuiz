@@ -178,68 +178,39 @@ body {
 }
 
 .message-part {
-  display: inline-block;
+  display: block;
 
-  padding: 4px 6px;
+  padding: 12px 10px;
 
-  border-radius: 6px;
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  user-select: none;
 
   transition:
     background 0.2s ease,
-    transform 0.2s ease;
+    transform 0.15s ease;
 }
 
-.message-part.suspicious {
-  cursor: pointer;
-
-  background: #fff3cd;
-
-  border-bottom:
-    3px solid #f59e0b;
+.message-part:hover {
+  background: rgba(124, 58, 237, 0.08);
 }
 
-.message-part.suspicious:active {
-  transform: scale(0.96);
+.message-part:active {
+  transform: scale(0.98);
 }
 
-/* ===== ヒント ===== */
-
-.hint {
-  color: rgba(255,255,255,0.95);
-
-  font-size: 15px;
-
-  font-weight: bold;
-
-  margin-top: 18px;
+/* 正解 */
+.message-part.correct {
+  background: #dcfce7;
+  border-left: 5px solid #22c55e;
 }
 
-/* ===== 正解・不正解表示 ===== */
-
-.feedback {
-  display: none;
-
-  background: rgba(255,255,255,0.95);
-
-  color: #333;
-
-  border-radius: 18px;
-
-  padding: 18px;
-
-  margin-top: 16px;
-
-  line-height: 1.7;
-
-  font-size: 15px;
-
-  text-align: left;
-
-  animation: fadeIn 0.3s ease;
-}
-
-.feedback.show {
-  display: block;
+/* 不正解 */
+.message-part.wrong {
+  background: #fee2e2;
+  border-left: 5px solid #ef4444;
 }
 
 /* ===== 説明 ===== */
