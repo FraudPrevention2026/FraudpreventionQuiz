@@ -18,6 +18,7 @@
   <main class="app">
 
     <!-- ===== ゲーム画面 ===== -->
+
     <section id="gameScreen">
 
       <div class="top-area">
@@ -26,24 +27,34 @@
           🔍 怪しいポイントを探せ！
         </div>
 
-        <div class="progress-text" id="progressText">
+        <div
+          class="progress-text"
+          id="progressText"
+        >
           1 / 5
         </div>
 
         <div class="progress-bar">
+
           <div
             class="progress-fill"
             id="progressFill"
           ></div>
+
         </div>
 
       </div>
 
-      <div class="card" id="card">
+
+      <div
+        class="card"
+        id="card"
+      >
 
         <div class="question-label">
           このメッセージ、どこか怪しい？
         </div>
+
 
         <div
           class="message-card"
@@ -51,9 +62,11 @@
         >
         </div>
 
+
         <div class="hint">
           👆 怪しいと思う部分をタップ！
         </div>
+
 
         <div
           class="feedback"
@@ -78,16 +91,19 @@
           🎉 ゲーム終了！
         </div>
 
+
         <div class="score-label">
           あなたのスコア
         </div>
+
 
         <div
           class="score"
           id="finalScore"
         >
-          0
+          0点
         </div>
+
 
         <div
           class="result-message"
@@ -95,12 +111,19 @@
         >
         </div>
 
+
+        <!-- もう一度遊ぶ -->
+
         <button
+          type="button"
           class="main-btn"
           onclick="restartGame()"
         >
           🔄 もう一度遊ぶ
         </button>
+
+
+        <!-- ゲーム一覧に戻る -->
 
         <a
           class="summary-btn"
@@ -109,7 +132,11 @@
           🏠 ゲーム一覧に戻る
         </a>
 
+
+        <!-- 詐欺について学ぶ -->
+
         <button
+          type="button"
           class="sub-btn"
           onclick="goToLearn()"
         >
@@ -121,6 +148,7 @@
     </section>
 
   </main>
+
 
   <script src="script.js"></script>
 
