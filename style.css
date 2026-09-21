@@ -1,476 +1,128 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
 
-body {
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
-  min-height: 100vh;
+  <title>怪しいポイントを探せ！</title>
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  <link rel="stylesheet" href="style.css">
+</head>
 
-  padding: 20px;
+<body>
 
-  background:
-    linear-gradient(
-      135deg,
-      #8b5cf6,
-      #ec4899,
-      #06b6d4
-    );
+  <main class="app">
 
-  overflow-x: hidden;
-}
+    <!-- ===== ゲーム画面 ===== -->
+    <section id="gameScreen">
 
-.app {
-  width: 100%;
-  max-width: 420px;
-}
+      <div class="top-area">
 
+        <div class="game-title">
+          🔍 怪しいポイントを探せ！
+        </div>
 
-/* =========================
-   上部
-========================= */
+        <div class="progress-text" id="progressText">
+          1 / 5
+        </div>
 
-.top-area {
-  margin-bottom: 18px;
-}
+        <div class="progress-bar">
+          <div
+            class="progress-fill"
+            id="progressFill"
+          ></div>
+        </div>
 
-.game-title {
-  color: white;
+      </div>
 
-  font-size: 22px;
-  font-weight: bold;
+      <div class="card" id="card">
 
-  text-align: center;
+        <div class="question-label">
+          このメッセージ、どこか怪しい？
+        </div>
 
-  margin-bottom: 14px;
+        <div
+          class="message-card"
+          id="messageCard"
+        >
+        </div>
 
-  text-shadow:
-    0 3px 10px rgba(0, 0, 0, 0.15);
-}
+        <div class="hint">
+          👆 怪しいと思う部分をタップ！
+        </div>
 
-.progress-text {
-  color: white;
+        <div
+          class="feedback"
+          id="feedback"
+        ></div>
 
-  font-size: 14px;
-  font-weight: bold;
+      </div>
 
-  text-align: center;
+    </section>
 
-  margin-bottom: 8px;
-}
 
-.progress-bar {
-  width: 100%;
-  height: 12px;
+    <!-- ===== 結果画面 ===== -->
 
-  background:
-    rgba(255, 255, 255, 0.25);
+    <section
+      id="resultScreen"
+      class="result-screen hidden"
+    >
 
-  border-radius: 999px;
+      <div class="result-card">
 
-  overflow: hidden;
+        <div class="result-title">
+          🎉 ゲーム終了！
+        </div>
 
-  backdrop-filter: blur(10px);
-}
+        <div class="score-label">
+          あなたのスコア
+        </div>
 
-.progress-fill {
-  width: 0%;
-  height: 100%;
+        <div
+          class="score"
+          id="finalScore"
+        >
+          0
+        </div>
 
-  background: white;
+        <div
+          class="result-message"
+          id="resultMessage"
+        >
+        </div>
 
-  border-radius: 999px;
+        <button
+          class="main-btn"
+          onclick="restartGame()"
+        >
+          🔄 もう一度遊ぶ
+        </button>
 
-  transition:
-    width 0.4s ease;
-}
+        <a
+          class="summary-btn"
+          href="https://fraudprevention2026.github.io/summary/"
+        >
+          🏠 ゲーム一覧に戻る
+        </a>
 
+        <button
+          class="sub-btn"
+          onclick="goToLearn()"
+        >
+          📚 詐欺について学ぶ
+        </button>
 
-/* =========================
-   メインカード
-========================= */
+      </div>
 
-.card {
-  background:
-    rgba(255, 255, 255, 0.18);
+    </section>
 
-  backdrop-filter: blur(18px);
+  </main>
 
-  border-radius: 30px;
+  <script src="script.js"></script>
 
-  padding: 24px 20px;
-
-  box-shadow:
-    0 15px 45px rgba(0, 0, 0, 0.25);
-
-  border:
-    1px solid rgba(255, 255, 255, 0.25);
-
-  animation:
-    fadeIn 0.4s ease;
-}
-
-.question-label {
-  color: white;
-
-  font-size: 18px;
-  font-weight: bold;
-
-  text-align: center;
-
-  margin-bottom: 20px;
-}
-
-
-/* =========================
-   メッセージ
-========================= */
-
-.message-card {
-  background: white;
-
-  color: #333;
-
-  border-radius: 22px;
-
-  padding: 22px 18px;
-
-  box-shadow:
-    0 8px 25px rgba(0, 0, 0, 0.15);
-
-  text-align: left;
-
-  line-height: 1.8;
-
-  font-size: 16px;
-
-  margin-bottom: 18px;
-}
-
-
-/* タップ可能な怪しい部分 */
-
-.message-part {
-  display: block;
-
-  padding: 8px 6px;
-
-  margin: 3px 0;
-
-  border-radius: 10px;
-
-  cursor: pointer;
-
-  transition:
-    background 0.2s ease,
-    transform 0.15s ease;
-}
-
-.message-part:active {
-  transform: scale(0.98);
-}
-
-.message-part:hover {
-  background:
-    rgba(139, 92, 246, 0.08);
-}
-
-
-/* 正解 */
-
-.message-part.correct {
-  background:
-    #dcfce7;
-
-  color: #166534;
-
-  font-weight: bold;
-}
-
-
-/* 間違い */
-
-.message-part.wrong {
-  background:
-    #fee2e2;
-
-  color: #991b1b;
-}
-
-
-/* =========================
-   ヒント
-========================= */
-
-.hint {
-  color:
-    rgba(255, 255, 255, 0.9);
-
-  text-align: center;
-
-  font-size: 15px;
-
-  margin-bottom: 14px;
-}
-
-
-/* =========================
-   フィードバック
-========================= */
-
-.feedback {
-  color: white;
-
-  font-size: 16px;
-
-  line-height: 1.7;
-
-  text-align: center;
-
-  min-height: 30px;
-}
-
-.feedback.correct {
-  color: #dcfce7;
-}
-
-.feedback.wrong {
-  color: #fee2e2;
-}
-
-
-/* =========================
-   結果画面
-========================= */
-
-.hidden {
-  display: none;
-}
-
-.result-screen {
-  width: 100%;
-}
-
-.result-card {
-  background:
-    rgba(255, 255, 255, 0.18);
-
-  backdrop-filter: blur(18px);
-
-  border-radius: 30px;
-
-  padding: 32px 24px;
-
-  text-align: center;
-
-  box-shadow:
-    0 15px 45px rgba(0, 0, 0, 0.25);
-
-  border:
-    1px solid rgba(255, 255, 255, 0.25);
-
-  animation:
-    fadeIn 0.5s ease;
-}
-
-.result-title {
-  color: white;
-
-  font-size: 28px;
-  font-weight: bold;
-
-  margin-bottom: 25px;
-}
-
-.score-label {
-  color:
-    rgba(255, 255, 255, 0.9);
-
-  font-size: 17px;
-
-  margin-bottom: 5px;
-}
-
-.score {
-  color: white;
-
-  font-size: 64px;
-
-  font-weight: bold;
-
-  line-height: 1;
-
-  margin-bottom: 25px;
-
-  text-shadow:
-    0 5px 15px rgba(0, 0, 0, 0.2);
-}
-
-.result-message {
-  color: white;
-
-  font-size: 17px;
-
-  line-height: 1.8;
-
-  margin-bottom: 28px;
-}
-
-
-/* =========================
-   ボタン
-========================= */
-
-.main-btn,
-.sub-btn {
-  width: 100%;
-
-  border: none;
-
-  border-radius: 18px;
-
-  padding: 16px 20px;
-
-  font-size: 17px;
-
-  font-weight: bold;
-
-  cursor: pointer;
-
-  box-shadow:
-    0 8px 20px rgba(0, 0, 0, 0.18);
-
-  transition:
-    transform 0.15s ease,
-    opacity 0.2s ease;
-}
-
-.main-btn {
-  background: white;
-
-  color: #7c3aed;
-
-  margin-bottom: 16px;
-}
-
-.sub-btn {
-  background:
-    rgba(255, 255, 255, 0.2);
-
-  color: white;
-
-  border:
-    1px solid rgba(255, 255, 255, 0.5);
-}
-
-.main-btn:active,
-.sub-btn:active {
-  transform: scale(0.95);
-}
-.summary-btn {
-  display: block;
-  width: 100%;
-  margin-top: 12px;
-  padding: 16px 20px;
-  background: rgba(255,255,255,0.9);
-  color: #6366f1;
-  font-size: 16px;
-  font-weight: bold;
-  text-decoration: none;
-  text-align: center;
-  border-radius: 18px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-  transition: transform 0.15s ease;
-}
-
-.summary-btn:active {
-  transform: scale(0.96);
-}
-
-/* =========================
-   アニメーション
-========================= */
-
-.fade {
-  animation:
-    fadeIn 0.4s ease;
-}
-
-@keyframes fadeIn {
-
-  from {
-    opacity: 0;
-
-    transform:
-      translateY(12px);
-  }
-
-  to {
-    opacity: 1;
-
-    transform:
-      translateY(0);
-  }
-}
-.summary-btn {
-  display: block;
-  width: 100%;
-  margin-top: 12px;
-  padding: 16px 20px;
-  background: rgba(255,255,255,0.9);
-  color: #6366f1;
-  font-size: 16px;
-  font-weight: bold;
-  text-decoration: none;
-  text-align: center;
-  border-radius: 18px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
-  transition: transform 0.15s ease;
-}
-
-.summary-btn:active {
-  transform: scale(0.96);
-}
-
-/* =========================
-   スマホ
-========================= */
-
-@media (max-width: 480px) {
-
-  body {
-    padding: 14px;
-  }
-
-  .game-title {
-    font-size: 20px;
-  }
-
-  .card {
-    padding: 22px 16px;
-  }
-
-  .message-card {
-    font-size: 15px;
-
-    padding: 20px 15px;
-  }
-
-  .result-title {
-    font-size: 25px;
-  }
-
-  .score {
-    font-size: 56px;
-  }
-}
+</body>
+</html>
