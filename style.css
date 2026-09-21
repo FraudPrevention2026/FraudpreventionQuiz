@@ -213,6 +213,15 @@ body {
   border-left: 5px solid #ef4444;
 }
 
+.hint {
+  background: white;
+  padding: 10px 14px;
+  border-radius: 10px;
+  color: #333;
+  text-align: center;
+}
+
+
 /* ===== 説明 ===== */
 
 .explanation {
