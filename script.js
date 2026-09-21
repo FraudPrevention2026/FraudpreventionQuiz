@@ -493,6 +493,7 @@ function checkAnswer(
   feedback.appendChild(
     nextButton
   );
+  feedback.classList.add("show");
 }
 
 
