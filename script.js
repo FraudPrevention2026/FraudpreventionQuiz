@@ -304,10 +304,8 @@ function showQuestion() {
   // 回答前の状態に戻す
   answered = false;
 
-  // 解説を消す
+  // 解説を消して非表示にする
   feedback.innerHTML = "";
-
-  // 解説ボックスも非表示に戻す
   feedback.classList.remove("show");
 
   // 進捗表示
@@ -337,31 +335,23 @@ function showQuestion() {
       part.innerText =
         text;
 
+      // クリックしたら回答判定
       part.addEventListener(
         "click",
         () => {
-
           checkAnswer(
             index,
             part
           );
-
         }
       );
 
+      // 行を画面に追加
       messageCard.appendChild(part);
 
     }
   );
 }
-
-
-      messageCard.appendChild(part);
-
-    }
-  );
-}
-
 
 // ========================================
 // 回答判定
@@ -381,8 +371,7 @@ function checkAnswer(
   // 回答済みにする
   answered = true;
 
-  // 解説を表示
-  feedback.style.display = "block";
+
 
   // 以下そのまま
 
