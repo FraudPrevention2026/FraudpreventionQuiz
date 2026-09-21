@@ -376,14 +376,16 @@ function checkAnswer(
   // すでに回答済みなら何もしない
   if (answered) return;
 
-
   const q =
     questions[currentQuestion];
-
 
   // 回答済みにする
   answered = true;
 
+  // 解説を表示
+  feedback.style.display = "block";
+
+  // 以下そのまま
 
   // ======================================
   // 正解
