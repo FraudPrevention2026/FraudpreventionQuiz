@@ -35,6 +35,12 @@ body {
   max-width: 420px;
 }
 
+/* ===== 非表示 ===== */
+
+.hidden {
+  display: none !important;
+}
+
 /* ===== 上部エリア ===== */
 
 .top-area {
@@ -42,27 +48,52 @@ body {
   margin-bottom: 20px;
 }
 
-.title {
+.game-title {
   color: white;
   font-size: 28px;
   font-weight: bold;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
 
-.question-count {
-  color: rgba(255,255,255,0.85);
+.progress-text {
+  color: rgba(255,255,255,0.9);
   font-size: 15px;
   font-weight: bold;
+  margin-bottom: 10px;
 }
 
-/* ===== メッセージカード ===== */
+.progress-bar {
+  width: 100%;
+  height: 14px;
 
-.message-card {
+  background: rgba(255,255,255,0.25);
+
+  border-radius: 999px;
+
+  overflow: hidden;
+
+  backdrop-filter: blur(10px);
+}
+
+.progress-fill {
+  width: 0%;
+  height: 100%;
+
+  background: white;
+
+  border-radius: 999px;
+
+  transition: width 0.4s ease;
+}
+
+/* ===== 問題カード ===== */
+
+.card {
   background: rgba(255,255,255,0.18);
 
   backdrop-filter: blur(16px);
 
-  border-radius: 28px;
+  border-radius: 30px;
 
   padding: 24px 20px;
 
@@ -72,10 +103,39 @@ body {
   border:
     1px solid rgba(255,255,255,0.2);
 
+  text-align: center;
+
   animation: fadeIn 0.5s ease;
 }
 
-/* ===== メッセージ本文 ===== */
+.question-label {
+  color: white;
+
+  font-size: 20px;
+
+  font-weight: bold;
+
+  margin-bottom: 18px;
+}
+
+/* ===== メッセージ ===== */
+
+.message-card {
+  background: white;
+
+  border-radius: 20px;
+
+  padding: 20px;
+
+  text-align: left;
+
+  box-shadow:
+    0 8px 20px rgba(0,0,0,0.15);
+
+  line-height: 1.7;
+
+  font-size: 16px;
+}
 
 .message-box {
   background: white;
@@ -92,6 +152,7 @@ body {
 
 .message-header {
   display: flex;
+
   align-items: center;
 
   gap: 10px;
@@ -110,7 +171,9 @@ body {
 
 .message-name {
   font-size: 16px;
+
   font-weight: bold;
+
   color: #333;
 }
 
@@ -139,7 +202,47 @@ body {
   transform: scale(0.96);
 }
 
-/* ===== 怪しいポイントの説明 ===== */
+/* ===== ヒント ===== */
+
+.hint {
+  color: rgba(255,255,255,0.95);
+
+  font-size: 15px;
+
+  font-weight: bold;
+
+  margin-top: 18px;
+}
+
+/* ===== 正解・不正解表示 ===== */
+
+.feedback {
+  display: none;
+
+  background: rgba(255,255,255,0.95);
+
+  color: #333;
+
+  border-radius: 18px;
+
+  padding: 18px;
+
+  margin-top: 16px;
+
+  line-height: 1.7;
+
+  font-size: 15px;
+
+  text-align: left;
+
+  animation: fadeIn 0.3s ease;
+}
+
+.feedback.show {
+  display: block;
+}
+
+/* ===== 説明 ===== */
 
 .explanation {
   display: none;
@@ -173,7 +276,76 @@ body {
   margin-bottom: 8px;
 }
 
-/* ===== ボタン ===== */
+/* ===== 結果画面 ===== */
+
+.result-screen {
+  width: 100%;
+}
+
+.result-card {
+  background: rgba(255,255,255,0.18);
+
+  backdrop-filter: blur(16px);
+
+  border-radius: 30px;
+
+  padding: 32px 24px;
+
+  text-align: center;
+
+  box-shadow:
+    0 12px 40px rgba(0,0,0,0.25);
+
+  border:
+    1px solid rgba(255,255,255,0.2);
+
+  animation: fadeIn 0.5s ease;
+}
+
+.result-title {
+  color: white;
+
+  font-size: 30px;
+
+  font-weight: bold;
+
+  margin-bottom: 20px;
+}
+
+.score-label {
+  color: rgba(255,255,255,0.9);
+
+  font-size: 16px;
+
+  font-weight: bold;
+
+  margin-bottom: 8px;
+}
+
+.score {
+  color: white;
+
+  font-size: 64px;
+
+  font-weight: bold;
+
+  margin-bottom: 20px;
+
+  text-shadow:
+    0 4px 10px rgba(0,0,0,0.2);
+}
+
+.result-message {
+  color: rgba(255,255,255,0.95);
+
+  font-size: 17px;
+
+  line-height: 1.8;
+
+  margin-bottom: 24px;
+}
+
+/* ===== もう一度遊ぶ ===== */
 
 .main-btn {
   width: 100%;
@@ -206,138 +378,6 @@ body {
   transform: scale(0.96);
 }
 
-.main-btn:disabled {
-  opacity: 0.5;
-
-  cursor: default;
-}
-
-/* ===== 次の問題ボタン ===== */
-
-.next-btn {
-  margin-top: 14px;
-
-  width: 100%;
-
-  border: none;
-
-  border-radius: 18px;
-
-  padding: 16px 20px;
-
-  background:
-    linear-gradient(
-      135deg,
-      #7c3aed,
-      #ec4899
-    );
-
-  color: white;
-
-  font-size: 17px;
-
-  font-weight: bold;
-
-  cursor: pointer;
-
-  box-shadow:
-    0 10px 20px rgba(0,0,0,0.18);
-
-  transition:
-    transform 0.15s ease;
-}
-
-.next-btn:active {
-  transform: scale(0.96);
-}
-
-/* ===== 結果画面 ===== */
-
-.result-card {
-  background: rgba(255,255,255,0.18);
-
-  backdrop-filter: blur(16px);
-
-  border-radius: 30px;
-
-  padding: 32px 24px;
-
-  text-align: center;
-
-  box-shadow:
-    0 12px 40px rgba(0,0,0,0.25);
-
-  border:
-    1px solid rgba(255,255,255,0.2);
-
-  animation: fadeIn 0.5s ease;
-}
-
-.result-title {
-  color: white;
-
-  font-size: 30px;
-
-  font-weight: bold;
-
-  margin-bottom: 20px;
-}
-
-.result-score {
-  color: white;
-
-  font-size: 56px;
-
-  font-weight: bold;
-
-  margin-bottom: 20px;
-
-  text-shadow:
-    0 4px 10px rgba(0,0,0,0.2);
-}
-
-.result-message {
-  color: rgba(255,255,255,0.95);
-
-  font-size: 17px;
-
-  line-height: 1.8;
-
-  margin-bottom: 24px;
-}
-
-/* ===== もう一度遊ぶボタン ===== */
-
-.retry-btn {
-  width: 100%;
-
-  border: none;
-
-  background: white;
-
-  color: #7c3aed;
-
-  font-size: 18px;
-
-  font-weight: bold;
-
-  padding: 16px 24px;
-
-  border-radius: 18px;
-
-  cursor: pointer;
-
-  box-shadow:
-    0 10px 20px rgba(0,0,0,0.2);
-
-  transition:
-    transform 0.15s ease;
-}
-
-.retry-btn:active {
-  transform: scale(0.96);
-}
-
 /* ===== ゲーム一覧に戻る ===== */
 
 .summary-btn {
@@ -349,7 +389,7 @@ body {
 
   padding: 16px 20px;
 
-  background: rgba(255,255,255,0.9);
+  background: #ffffff;
 
   color: #6366f1;
 
@@ -367,48 +407,47 @@ body {
     0 10px 20px rgba(0,0,0,0.15);
 
   transition:
-    transform 0.15s ease,
-    background 0.15s ease;
+    transform 0.15s ease;
 }
 
 .summary-btn:active {
   transform: scale(0.96);
 }
 
-/* ===== 詐欺について学ぶボタン ===== */
+/* ===== 詐欺について学ぶ ===== */
 
-.sub-btn {
-  display: block;
+.result-card .sub-btn {
+  display: block !important;
 
-  width: 100%;
+  width: 100% !important;
 
-  margin-top: 12px;
+  margin-top: 12px !important;
 
-  padding: 16px 20px;
+  padding: 16px 20px !important;
 
-  background: rgba(255, 255, 255, 0.9);
+  background: #ffffff !important;
 
-  color: #475569;
+  color: #475569 !important;
 
-  font-size: 16px;
+  font-size: 16px !important;
 
-  font-weight: bold;
+  font-weight: bold !important;
 
-  border: none;
+  border: none !important;
 
-  border-radius: 18px;
+  border-radius: 18px !important;
 
-  cursor: pointer;
+  cursor: pointer !important;
 
   box-shadow:
-    0 10px 20px rgba(0, 0, 0, 0.15);
+    0 10px 20px rgba(0,0,0,0.15) !important;
 
   transition:
     transform 0.15s ease,
     background 0.15s ease;
 }
 
-.sub-btn:active {
+.result-card .sub-btn:active {
   transform: scale(0.96);
 }
 
@@ -421,12 +460,16 @@ body {
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(12px);
+
+    transform:
+      translateY(12px);
   }
 
   to {
     opacity: 1;
-    transform: translateY(0);
+
+    transform:
+      translateY(0);
   }
 }
 
@@ -438,15 +481,15 @@ body {
     padding: 16px;
   }
 
-  .title {
+  .game-title {
     font-size: 24px;
   }
 
-  .message-card {
+  .card {
     padding: 20px 16px;
   }
 
-  .message-box {
+  .message-card {
     padding: 16px;
   }
 
@@ -458,14 +501,7 @@ body {
     font-size: 26px;
   }
 
-  .result-score {
-    font-size: 48px;
-  }
-
-  .main-btn,
-  .next-btn,
-  .retry-btn {
-    font-size: 16px;
-    padding: 15px;
+  .score {
+    font-size: 52px;
   }
 }
