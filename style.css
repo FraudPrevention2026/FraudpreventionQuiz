@@ -275,181 +275,124 @@ body {
 .feedback.show {
   display: block;
 
-/* ===== 結果画面 ===== */
+/* =========================
+   結果画面
+========================= */
 
 .result-screen {
-  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.result-screen.hidden {
+  display: none !important;
 }
 
 .result-card {
-  background: rgba(255,255,255,0.18);
-
-  backdrop-filter: blur(16px);
-
-  border-radius: 30px;
-
-  padding: 32px 24px;
-
+  width: 100%;
+  max-width: 480px;
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.97);
+  color: #333;
+  border-radius: 24px;
+  padding: 30px 24px;
   text-align: center;
-
-  box-shadow:
-    0 12px 40px rgba(0,0,0,0.25);
-
-  border:
-    1px solid rgba(255,255,255,0.2);
-
-  animation: fadeIn 0.5s ease;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
 }
 
 .result-title {
-  color: white;
-
-  font-size: 30px;
-
+  font-size: 26px;
   font-weight: bold;
-
   margin-bottom: 20px;
 }
 
 .score-label {
-  color: rgba(255,255,255,0.9);
-
-  font-size: 16px;
-
-  font-weight: bold;
-
-  margin-bottom: 8px;
+  font-size: 15px;
+  color: #666;
+  margin-bottom: 4px;
 }
 
 .score {
-  color: white;
-
-  font-size: 64px;
-
+  font-size: 56px;
   font-weight: bold;
-
-  margin-bottom: 20px;
-
-  text-shadow:
-    0 4px 10px rgba(0,0,0,0.2);
+  color: #6366f1;
+  line-height: 1.2;
+  margin-bottom: 12px;
 }
 
 .result-message {
-  color: rgba(255,255,255,0.95);
-
-  font-size: 17px;
-
-  line-height: 1.8;
-
-  margin-bottom: 24px;
+  font-size: 15px;
+  line-height: 1.7;
+  margin-bottom: 22px;
 }
 
-/* ===== もう一度遊ぶ ===== */
-
+/* もう一度遊ぶ */
 .main-btn {
+  display: block;
   width: 100%;
-
   border: none;
-
-  border-radius: 18px;
-
   padding: 16px 20px;
-
-  background: white;
-
-  color: #7c3aed;
-
-  font-size: 17px;
-
+  background: #6366f1;
+  color: white;
+  font-size: 16px;
   font-weight: bold;
-
+  border-radius: 18px;
   cursor: pointer;
-
-  box-shadow:
-    0 10px 20px rgba(0,0,0,0.18);
-
-  transition:
-    transform 0.15s ease,
-    opacity 0.2s ease;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  transition: transform 0.15s ease;
 }
 
 .main-btn:active {
   transform: scale(0.96);
 }
 
-/* ===== ゲーム一覧に戻る ===== */
-
+/* ゲーム一覧に戻る */
 .summary-btn {
   display: block;
-
   width: 100%;
-
   margin-top: 12px;
-
   padding: 16px 20px;
-
-  background: #ffffff;
-
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.9);
   color: #6366f1;
-
   font-size: 16px;
-
   font-weight: bold;
-
   text-decoration: none;
-
   text-align: center;
-
   border-radius: 18px;
-
-  box-shadow:
-    0 10px 20px rgba(0,0,0,0.15);
-
-  transition:
-    transform 0.15s ease;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  transition: transform 0.15s ease;
 }
 
 .summary-btn:active {
   transform: scale(0.96);
 }
 
-/* ===== 詐欺について学ぶ ===== */
-
-.result-card .sub-btn {
-  display: block !important;
-
-  width: 100% !important;
-
-  margin-top: 12px !important;
-
-  padding: 16px 20px !important;
-
-  background: #ffffff !important;
-
-  color: #475569 !important;
-
-  font-size: 16px !important;
-
-  font-weight: bold !important;
-
-  border: none !important;
-
-  border-radius: 18px !important;
-
-  cursor: pointer !important;
-
-  box-shadow:
-    0 10px 20px rgba(0,0,0,0.15) !important;
-
-  transition:
-    transform 0.15s ease,
-    background 0.15s ease;
+/* 詐欺について学ぶ */
+.sub-btn {
+  display: block;
+  width: 100%;
+  margin-top: 12px;
+  padding: 16px 20px;
+  box-sizing: border-box;
+  border: none;
+  background: white;
+  color: #6366f1;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 18px;
+  cursor: pointer;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  transition: transform 0.15s ease;
 }
 
-.result-card .sub-btn:active {
+.sub-btn:active {
   transform: scale(0.96);
 }
-
 /* ===== アニメーション ===== */
 
 .fade {
