@@ -506,9 +506,6 @@ body {
   }
 }
 /* ===== 動作確認 ===== */
-body {
-  border: 10px solid red !important;
-}
 
 .hidden {
   display: none !important;
