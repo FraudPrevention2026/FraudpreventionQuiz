@@ -310,16 +310,16 @@ function showQuestion() {
 
 
   // 進捗表示
-  progressText.innerText =
-    `${currentQuestion + 1} / 5`;
+progressText.innerText =
+  (currentQuestion + 1) + " / 5";
 
 
-  // プログレスバー
-  const progress =
-    (currentQuestion / 5) * 100;
+ // プログレスバー
+const progress =
+  (currentQuestion / 5) * 100;
 
-  progressFill.style.width =
-    `${progress}%`;
+progressFill.style.width =
+  progress + "%";
 
 
   // メッセージを空にする
