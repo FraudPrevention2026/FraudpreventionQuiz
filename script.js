@@ -1,3 +1,4 @@
+```javascript
 // ========================================
 // 怪しいポイントを探せ！
 // ========================================
@@ -260,9 +261,7 @@ const resultMessage =
 
 function selectRandomQuestions() {
 
-  // 元の配列を直接変更しない
   const shuffled = [...allQuestions];
-
 
   // Fisher-Yatesシャッフル
   for (
@@ -285,7 +284,6 @@ function selectRandomQuestions() {
     ];
   }
 
-
   // 先頭5問を使用
   questions =
     shuffled.slice(0, 5);
@@ -301,16 +299,20 @@ function showQuestion() {
   const q =
     questions[currentQuestion];
 
+
   // 回答前の状態に戻す
   answered = false;
 
-  // 解説を消して非表示にする
+
+  // 解説を消して非表示
   feedback.innerHTML = "";
   feedback.classList.remove("show");
+
 
   // 進捗表示
   progressText.innerText =
     `${currentQuestion + 1} / 5`;
+
 
   // プログレスバー
   const progress =
@@ -319,8 +321,10 @@ function showQuestion() {
   progressFill.style.width =
     `${progress}%`;
 
+
   // メッセージを空にする
   messageCard.innerHTML = "";
+
 
   // メッセージを1行ずつ作る
   q.message.forEach(
@@ -329,32 +333,117 @@ function showQuestion() {
       const part =
         document.createElement("div");
 
+
       part.className =
         "message-part";
 
+
       part.innerText =
         text;
+
 
       // クリックしたら回答判定
       part.addEventListener(
         "click",
         () => {
+
           checkAnswer(
             index,
             part
           );
+
         }
       );
+
 
       // 行を画面に追加
       messageCard.appendChild(part);
 
     }
   );
+
+
+  // ======================================
+  // 「怪しいと確信できる場所はない」ボタン
+  // ======================================
+
+  const noSuspiciousButton =
+    document.createElement("button");
+
+
+  noSuspiciousButton.className =
+    "no-suspicious-btn";
+
+
+  noSuspiciousButton.innerText =
+    "⚪ 怪しいと確信できる場所はない";
+
+
+  noSuspiciousButton.addEventListener(
+    "click",
+    () => {
+
+      checkNoSuspicious();
+
+    }
+  );
+
+
+  // メッセージの下に追加
+  messageCard.appendChild(
+    noSuspiciousButton
+  );
 }
 
+
 // ========================================
-// 回答判定
+// 「怪しいところはない」の回答判定
+// ========================================
+
+function checkNoSuspicious() {
+
+  // すでに回答済みなら何もしない
+  if (answered) return;
+
+
+  const q =
+    questions[currentQuestion];
+
+
+  // 回答済みにする
+  answered = true;
+
+
+  // 正解
+  if (q.correct.length === 0) {
+
+    score += 20;
+
+    feedback.innerHTML =
+      `🎉 正解！<br><br>${q.explanation}`;
+
+  }
+
+  // 不正解
+  else {
+
+    feedback.innerHTML =
+      `❌ 不正解！<br><br>${q.explanation}`;
+
+  }
+
+
+  // 次の問題ボタンを追加
+  addNextButton();
+
+
+  // 解説を表示
+  feedback.classList.add("show");
+}
+
+
+// ========================================
+// 通常の回答判定
 // ========================================
 
 function checkAnswer(
@@ -365,15 +454,14 @@ function checkAnswer(
   // すでに回答済みなら何もしない
   if (answered) return;
 
+
   const q =
     questions[currentQuestion];
+
 
   // 回答済みにする
   answered = true;
 
-
-
-  // 以下そのまま
 
   // ======================================
   // 正解
@@ -436,15 +524,51 @@ function checkAnswer(
     );
 
 
+    // 正解ポイントがある場合は表示
+    const parts =
+      messageCard.querySelectorAll(
+        ".message-part"
+      );
+
+
+    q.correct.forEach(
+      correctIndex => {
+
+        if (
+          parts[correctIndex]
+        ) {
+
+          parts[correctIndex]
+            .classList.add(
+              "correct"
+            );
+
+        }
+
+      }
+    );
+
+
     feedback.innerHTML =
       `❌ 不正解！<br><br>${q.explanation}`;
 
   }
 
 
-  // ======================================
   // 次の問題ボタン
-  // ======================================
+  addNextButton();
+
+
+  // 解説を表示
+  feedback.classList.add("show");
+}
+
+
+// ========================================
+// 次の問題ボタンを作成
+// ========================================
+
+function addNextButton() {
 
   const nextButton =
     document.createElement(
@@ -483,7 +607,6 @@ function checkAnswer(
   feedback.appendChild(
     nextButton
   );
-  feedback.classList.add("show");
 }
 
 
@@ -641,3 +764,4 @@ function goToLearn() {
 selectRandomQuestions();
 
 showQuestion();
+```
