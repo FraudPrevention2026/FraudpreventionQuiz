@@ -1,4 +1,3 @@
-```javascript
 // ========================================
 // 怪しいポイントを探せ！
 // ========================================
@@ -218,11 +217,8 @@ const allQuestions = [
 // ========================================
 
 let questions = [];
-
 let currentQuestion = 0;
-
 let score = 0;
-
 let answered = false;
 
 
@@ -230,29 +226,14 @@ let answered = false;
 // HTML要素
 // ========================================
 
-const gameScreen =
-  document.getElementById("gameScreen");
-
-const resultScreen =
-  document.getElementById("resultScreen");
-
-const messageCard =
-  document.getElementById("messageCard");
-
-const feedback =
-  document.getElementById("feedback");
-
-const progressText =
-  document.getElementById("progressText");
-
-const progressFill =
-  document.getElementById("progressFill");
-
-const finalScore =
-  document.getElementById("finalScore");
-
-const resultMessage =
-  document.getElementById("resultMessage");
+const gameScreen = document.getElementById("gameScreen");
+const resultScreen = document.getElementById("resultScreen");
+const messageCard = document.getElementById("messageCard");
+const feedback = document.getElementById("feedback");
+const progressText = document.getElementById("progressText");
+const progressFill = document.getElementById("progressFill");
+const finalScore = document.getElementById("finalScore");
+const resultMessage = document.getElementById("resultMessage");
 
 
 // ========================================
@@ -263,30 +244,15 @@ function selectRandomQuestions() {
 
   const shuffled = [...allQuestions];
 
-  // Fisher-Yatesシャッフル
-  for (
-    let i = shuffled.length - 1;
-    i > 0;
-    i--
-  ) {
+  for (let i = shuffled.length - 1; i > 0; i--) {
 
-    const j =
-      Math.floor(
-        Math.random() * (i + 1)
-      );
+    const j = Math.floor(Math.random() * (i + 1));
 
-    [
-      shuffled[i],
-      shuffled[j]
-    ] = [
-      shuffled[j],
-      shuffled[i]
-    ];
+    [shuffled[i], shuffled[j]] =
+      [shuffled[j], shuffled[i]];
   }
 
-  // 先頭5問を使用
-  questions =
-    shuffled.slice(0, 5);
+  questions = shuffled.slice(0, 5);
 }
 
 
@@ -296,53 +262,40 @@ function selectRandomQuestions() {
 
 function showQuestion() {
 
-  const q =
-    questions[currentQuestion];
+  const q = questions[currentQuestion];
 
-
-  // 回答前の状態に戻す
   answered = false;
 
-
-  // 解説を消して非表示
   feedback.innerHTML = "";
   feedback.classList.remove("show");
 
-
   // 進捗表示
-progressText.innerText =
-  (currentQuestion + 1) + " / 5";
+  progressText.innerText =
+    (currentQuestion + 1) + " / 5";
 
+  // プログレスバー
+  const progress =
+    (currentQuestion / 5) * 100;
 
- // プログレスバー
-const progress =
-  (currentQuestion / 5) * 100;
+  progressFill.style.width =
+    progress + "%";
 
-progressFill.style.width =
-  progress + "%";
-
-
-  // メッセージを空にする
+  // メッセージをクリア
   messageCard.innerHTML = "";
 
-
-  // メッセージを1行ずつ作る
+  // メッセージを表示
   q.message.forEach(
     (text, index) => {
 
       const part =
         document.createElement("div");
 
-
       part.className =
         "message-part";
-
 
       part.innerText =
         text;
 
-
-      // クリックしたら回答判定
       part.addEventListener(
         "click",
         () => {
@@ -355,29 +308,19 @@ progressFill.style.width =
         }
       );
 
-
-      // 行を画面に追加
       messageCard.appendChild(part);
-
     }
   );
 
-
-  // ======================================
-  // 「怪しいと確信できる場所はない」ボタン
-  // ======================================
-
+  // 「怪しいところはない」ボタン
   const noSuspiciousButton =
     document.createElement("button");
-
 
   noSuspiciousButton.className =
     "no-suspicious-btn";
 
-
   noSuspiciousButton.innerText =
     "⚪ 怪しいと確信できる場所はない";
-
 
   noSuspiciousButton.addEventListener(
     "click",
@@ -388,8 +331,6 @@ progressFill.style.width =
     }
   );
 
-
-  // メッセージの下に追加
   messageCard.appendChild(
     noSuspiciousButton
   );
@@ -402,42 +343,30 @@ progressFill.style.width =
 
 function checkNoSuspicious() {
 
-  // すでに回答済みなら何もしない
   if (answered) return;
-
 
   const q =
     questions[currentQuestion];
 
-
-  // 回答済みにする
   answered = true;
 
-
-  // 正解
   if (q.correct.length === 0) {
 
     score += 20;
 
     feedback.innerHTML =
-      `🎉 正解！<br><br>${q.explanation}`;
+      "🎉 正解！<br><br>" +
+      q.explanation;
 
-  }
-
-  // 不正解
-  else {
+  } else {
 
     feedback.innerHTML =
-      `❌ 不正解！<br><br>${q.explanation}`;
-
+      "❌ 不正解！<br><br>" +
+      q.explanation;
   }
 
-
-  // 次の問題ボタンを追加
   addNextButton();
 
-
-  // 解説を表示
   feedback.classList.add("show");
 }
 
@@ -451,42 +380,27 @@ function checkAnswer(
   element
 ) {
 
-  // すでに回答済みなら何もしない
   if (answered) return;
-
 
   const q =
     questions[currentQuestion];
 
-
-  // 回答済みにする
   answered = true;
-
-
-  // ======================================
-  // 正解
-  // ======================================
 
   if (
     q.correct.includes(index)
   ) {
 
-    // 正解 → 20点
     score += 20;
 
-
-    // 正解部分を強調
     element.classList.add(
       "correct"
     );
 
-
-    // 正解ポイントをすべて表示
     const parts =
       messageCard.querySelectorAll(
         ".message-part"
       );
-
 
     q.correct.forEach(
       correctIndex => {
@@ -499,37 +413,25 @@ function checkAnswer(
             .classList.add(
               "correct"
             );
-
         }
 
       }
     );
 
-
     feedback.innerHTML =
-      `🎉 正解！<br><br>${q.explanation}`;
+      "🎉 正解！<br><br>" +
+      q.explanation;
 
-  }
+  } else {
 
-
-  // ======================================
-  // 不正解
-  // ======================================
-
-  else {
-
-    // 不正解 → 0点
     element.classList.add(
       "wrong"
     );
 
-
-    // 正解ポイントがある場合は表示
     const parts =
       messageCard.querySelectorAll(
         ".message-part"
       );
-
 
     q.correct.forEach(
       correctIndex => {
@@ -542,24 +444,18 @@ function checkAnswer(
             .classList.add(
               "correct"
             );
-
         }
 
       }
     );
 
-
     feedback.innerHTML =
-      `❌ 不正解！<br><br>${q.explanation}`;
-
+      "❌ 不正解！<br><br>" +
+      q.explanation;
   }
 
-
-  // 次の問題ボタン
   addNextButton();
 
-
-  // 解説を表示
   feedback.classList.add("show");
 }
 
@@ -575,12 +471,9 @@ function addNextButton() {
       "button"
     );
 
-
   nextButton.className =
     "main-btn";
 
-
-  // 最後の問題か判定
   if (
     currentQuestion ===
     questions.length - 1
@@ -593,16 +486,12 @@ function addNextButton() {
 
     nextButton.innerText =
       "次の問題へ";
-
   }
 
-
-  // ボタンを押したら次へ
   nextButton.addEventListener(
     "click",
     nextQuestion
   );
-
 
   feedback.appendChild(
     nextButton
@@ -618,7 +507,6 @@ function nextQuestion() {
 
   currentQuestion++;
 
-
   if (
     currentQuestion <
     questions.length
@@ -629,7 +517,6 @@ function nextQuestion() {
   } else {
 
     showResult();
-
   }
 }
 
@@ -640,33 +527,21 @@ function nextQuestion() {
 
 function showResult() {
 
-  // プログレスバーを100%にする
   progressText.innerText =
     "5 / 5";
 
   progressFill.style.width =
     "100%";
 
-
-  // ゲーム画面を隠す
   gameScreen.style.display =
     "none";
 
-
-  // 結果画面を表示
   resultScreen.classList.remove(
     "hidden"
   );
 
-
-  // 100点満点で表示
   finalScore.innerText =
-    `${score} / 100`;
-
-
-  // ======================================
-  // スコア別メッセージ
-  // ======================================
+    score + " / 100";
 
   if (score === 100) {
 
@@ -674,38 +549,29 @@ function showResult() {
       "🏆 パーフェクト！\n" +
       "怪しいポイントをしっかり見抜けています！";
 
-  }
-
-  else if (score >= 80) {
+  } else if (score >= 80) {
 
     resultMessage.innerText =
       "🎉 すごい！\n" +
       "かなりの確率で怪しいポイントを見抜けています。";
 
-  }
-
-  else if (score >= 60) {
+  } else if (score >= 60) {
 
     resultMessage.innerText =
       "👍 いい感じ！\n" +
       "もう少し注意すると、さらに見抜けそうです。";
 
-  }
-
-  else if (score >= 40) {
+  } else if (score >= 40) {
 
     resultMessage.innerText =
       "🔍 もう一歩！\n" +
       "怪しいポイントを意識して確認してみましょう。";
 
-  }
-
-  else {
+  } else {
 
     resultMessage.innerText =
       "💡 これから覚えていこう！\n" +
       "怪しいメッセージは、一度立ち止まって確認することが大切です。";
-
   }
 }
 
@@ -716,30 +582,21 @@ function showResult() {
 
 function restartGame() {
 
-  // ゲーム状態をリセット
   currentQuestion = 0;
 
   score = 0;
 
   answered = false;
 
-
-  // 新しく5問をランダム選択
   selectRandomQuestions();
 
-
-  // ゲーム画面を表示
   gameScreen.style.display =
     "block";
 
-
-  // 結果画面を隠す
   resultScreen.classList.add(
     "hidden"
   );
 
-
-  // 最初の問題を表示
   showQuestion();
 }
 
@@ -764,4 +621,3 @@ function goToLearn() {
 selectRandomQuestions();
 
 showQuestion();
-```
