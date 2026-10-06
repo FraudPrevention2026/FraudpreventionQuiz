@@ -181,14 +181,12 @@ body {
 
 .message-part {
   display: block;
-
   padding: 12px 10px;
-
   border-radius: 10px;
-
   cursor: pointer;
-
   user-select: none;
+
+  color: #333;
 
   transition:
     background 0.2s ease,
