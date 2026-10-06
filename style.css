@@ -449,14 +449,7 @@ body {
     font-size: 52px;
   }
 }
-/* ===== 動作確認 ===== */
 
-.hidden {
-  display: none !important;
-
-  
-}
-```css
 .no-suspicious-btn {
   display: block;
   width: 100%;
@@ -475,9 +468,7 @@ body {
   cursor: pointer;
 }
 
-.no-suspi
-cious-btn:active {
+.no-suspicious-btn:active {
   transform: scale(0.98);
 }
-```
 
