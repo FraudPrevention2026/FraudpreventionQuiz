@@ -235,6 +235,9 @@ const progressFill = document.getElementById("progressFill");
 const finalScore = document.getElementById("finalScore");
 const resultMessage = document.getElementById("resultMessage");
 
+const noSuspiciousArea =
+  document.getElementById("noSuspiciousArea");
+
 
 // ========================================
 // 10問から5問をランダム選択
@@ -282,6 +285,8 @@ function showQuestion() {
 
   // メッセージをクリア
   messageCard.innerHTML = "";
+
+  noSuspiciousArea.innerHTML = "";
 
   // メッセージを表示
   q.message.forEach(
@@ -331,7 +336,7 @@ function showQuestion() {
     }
   );
 
-  messageCard.appendChild(
+  noSuspiciousArea.appendChild(
     noSuspiciousButton
   );
 }
